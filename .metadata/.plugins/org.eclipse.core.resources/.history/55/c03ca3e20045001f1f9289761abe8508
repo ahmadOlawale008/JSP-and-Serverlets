@@ -1,0 +1,27 @@
+package com.serverlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+public class SquareServlet extends HttpServlet   {
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException{
+		PrintWriter out = res.getWriter();
+//		HttpSession session = req.getSession();
+		int k = 0;
+//		int k = (int) session.getAttribute("k");
+		Cookie[] cookies = req.getCookies();
+		for(Cookie c: cookies) {
+			if(c.getName() == "k"){
+				k = Integer.parseInt(c.getValue());
+			}
+		}
+//		session.removeAttribute("k");
+		out.printf("Squared value is cookie: %d", k*k);
+	}
+}
